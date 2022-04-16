@@ -3,8 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="TestMapper">
-    <select id="selectName"
-            resultType="Student">
+
+    <resultMap id="test" type="Student">
+        <result column="id" property="id"/>
+        <result column="name" property="url"/>
+        <result column="url" property="name"/>
+    </resultMap>
+    <select id="selectName" resultMap="test">
         select * from websites
     </select>
+    <select id="getID" resultType="Student">
+        select * from websites where id=#{id}
+    </select>
+   <insert id="add" parameterType="Student">
+       insert into websites ( name, url) values (#{name},#{url})
+   </insert>
 </mapper>

@@ -1,18 +1,17 @@
-import lombok.Getter;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(new FileInputStream("mybatis.xml"));
-        try (SqlSession session=sqlSessionFactory.openSession(true)){
-            List<Student> student = session.selectList("selectName");
-            student.forEach(System.out::println);
+    public static void main(String[] args) {
+        try (SqlSession session=MybatisUtil.getSession(true)){
+            TestMapper testMapper =session.getMapper(TestMapper.class);
+
+            testMapper.add(new Student().setName("Github").setUrl("github.com"));
+            System.out.println(testMapper.getID(6));
+            //System.out.println();
         }
     }
 }
