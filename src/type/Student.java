@@ -1,3 +1,5 @@
+package type;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
